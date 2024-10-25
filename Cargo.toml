@@ -1,0 +1,11 @@
+[package]
+name = "rusty_psql"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+azure_core = { version = "0.20", features = ["enable_reqwest_rustls"] }
+azure_identity = { version = "0.20", default-features = false }
+azure_security_keyvault = "0.20.0"
+dotenv = "0.15"
