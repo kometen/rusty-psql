@@ -7,7 +7,7 @@
 mod tests;
 
 use anyhow::{Context, Result};
-use std::{env, process::Command};
+use std::process::Command;
 
 /// URL of the Azure Key Vault.
 pub struct SecretManager {
@@ -15,11 +15,6 @@ pub struct SecretManager {
 }
 
 impl SecretManager {
-    /// Creates a new Secret Manager instance with a default value.
-    pub fn new() -> Result<Self> {
-        Self::with_key("AZURE_KEY_VAULT_FAKTURA")
-    }
-
     /// Creates a new Secret Manager instance with a specific value.
     ///
     /// # Arguments
@@ -38,17 +33,16 @@ impl SecretManager {
     /// use anyhow::Result;
     ///
     /// fn example() -> Result<()> {
-    ///     let secret_manager = SecretManager::new()?;
-    ///     let secret_manager = SecretManager::with_key("AZURE_KEY_VAULT_TEST")?;
+    ///     let secret_manager = SecretManager::new("AZURE_KEY_VAULT_TEST")?;
     ///     Ok(())
     /// }
     /// ```
-    pub fn with_key(key: &str) -> Result<Self> {
-        let azure_key_vault_url = env::var(&key).context(format!("Failed to get {}", key))?;
+    pub fn new(key: &str) -> Result<Self> {
+        let op_path = format!("op://Production/AzureKeyVault{}/credentials/url", key);
 
         let command = Command::new("op")
             .arg("read")
-            .arg(&azure_key_vault_url)
+            .arg(&op_path)
             .output()
             .context("Error executing command")?;
 

@@ -8,5 +8,7 @@ anyhow = "1.0"
 azure_core = { version = "0.20", features = ["enable_reqwest_rustls"] }
 azure_identity = { version = "0.20", default-features = false }
 azure_security_keyvault = "0.20.0"
+clap = { version = "4.5", features = ["derive"] }
 dotenv = "0.15"
+hickory-resolver = "0.24"
 tokio = { version = "1", features = ["full"] }
