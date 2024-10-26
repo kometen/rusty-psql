@@ -1,5 +1,4 @@
 pub mod connect {
-    use std::io::Write;
     use std::process::{Command, Stdio};
 
     use crate::{Environment, Vault};
@@ -15,14 +14,10 @@ pub mod connect {
 
         let mut child = Command::new("psql")
             .arg(connection_string)
-            .stdin(Stdio::piped())
+            .env("PGPASSWORD", &vault.pwd)
             .stdout(Stdio::inherit())
             .stderr(Stdio::inherit())
             .spawn()?;
-
-        if let Some(mut stdin) = child.stdin.take() {
-            stdin.write_all(format!("{}\n", &vault.pwd).as_bytes())?;
-        }
 
         let status = child.wait()?;
 
