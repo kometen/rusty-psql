@@ -9,3 +9,4 @@ azure_core = { version = "0.20", features = ["enable_reqwest_rustls"] }
 azure_identity = { version = "0.20", default-features = false }
 azure_security_keyvault = "0.20.0"
 dotenv = "0.15"
+tokio = { version = "1", features = ["full"] }
