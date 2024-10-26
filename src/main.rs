@@ -1,6 +1,6 @@
 use anyhow::Result;
 use clap::Parser;
-use rusty_psql::{check_dns, Environment, SecretManager, Vault};
+use rusty_psql::{check_dns, run_psql, Environment, SecretManager, Vault};
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -20,6 +20,8 @@ async fn main() -> Result<()> {
         //eprintln!("Root cause: {}", e.root_cause());
         return Err(e);
     }
+
+    let _ = run_psql(&vault, &environment);
 
     Ok(())
 }
