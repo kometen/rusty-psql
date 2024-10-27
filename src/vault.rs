@@ -11,6 +11,7 @@ pub struct Vault {
     pub user: String,
     pub name: String,
     pub pwd: String,
+    pub domain: String,
 }
 
 impl Vault {
@@ -46,12 +47,14 @@ impl Vault {
         let user = get_secret(&client, String::from("db-user")).await;
         let name = get_secret(&client, String::from("db-name")).await;
         let pwd = get_secret(&client, String::from("db-pwd")).await;
+        let domain = get_secret(&client, String::from("db-domain")).await;
 
         Ok(Self {
             host,
             user,
             name,
             pwd,
+            domain,
         })
     }
 }
