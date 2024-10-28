@@ -43,11 +43,11 @@ impl Vault {
         let client = SecretClient::new(url, credential)
             .context("Failed to create a SecretClient instance")?;
 
-        let host = get_secret(&client, String::from("db-host")).await;
-        let user = get_secret(&client, String::from("db-user")).await;
-        let name = get_secret(&client, String::from("db-name")).await;
-        let pwd = get_secret(&client, String::from("db-pwd")).await;
-        let domain = get_secret(&client, String::from("db-domain")).await;
+        let host = get_secret(&client, String::from("db-host")).await?;
+        let user = get_secret(&client, String::from("db-user")).await?;
+        let name = get_secret(&client, String::from("db-name")).await?;
+        let pwd = get_secret(&client, String::from("db-pwd")).await?;
+        let domain = get_secret(&client, String::from("db-domain")).await?;
 
         Ok(Self {
             host,
@@ -59,11 +59,7 @@ impl Vault {
     }
 }
 
-async fn get_secret(client: &SecretClient, key: String) -> String {
-    client
-        .get(key.clone())
-        .await
-        .map_err(|e| format!("Error fetching secret using key {}: {}", key, e))
-        .unwrap()
-        .value
+async fn get_secret(client: &SecretClient, key: String) -> Result<String> {
+    let response = client.get(key).await.context("Unable to retrieve value")?;
+    Ok(response.value.to_string())
 }

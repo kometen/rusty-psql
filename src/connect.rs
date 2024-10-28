@@ -3,6 +3,7 @@ pub mod connect {
 
     use crate::Vault;
 
+    /// Performs the login to the database.
     pub fn run_psql(vault: &Vault) -> Result<(), Box<dyn std::error::Error>> {
         let connection_string = format!(
             "postgres://{}@{}.{}/{}",

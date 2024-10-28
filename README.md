@@ -8,6 +8,7 @@ The command line utilities from 1password and Azure are required, as well as Azu
 Clone the repository, run `cargo build [--release]`, add the `.env`file with the domain where the PostgreSQL database is.
 
 Add the following secrets to Azure Key Vault:
+
 ```
 db-host
 db-name

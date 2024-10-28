@@ -15,7 +15,6 @@ pub mod dns {
     /// # Arguments
     ///
     /// * `vault` - Name of the variable with values from Azure Key Vault
-    /// * `environment` - Name of the variable with values from the environment
     ///
     /// # Returns
     ///
