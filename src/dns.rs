@@ -6,7 +6,7 @@
 
 pub mod dns {
 
-    use crate::Vault;
+    use crate::{DatabaseConfig, Vault};
     use anyhow::{Context, Result};
     use hickory_resolver::error::ResolveError;
     use hickory_resolver::system_conf::read_system_conf;
@@ -22,9 +22,12 @@ pub mod dns {
     /// or an error if the hostname + domainname could not be resolved.
     ///
     pub async fn check_dns(vault: &Vault) -> Result<()> {
-        let (config, opts) = read_system_conf().map_err(|e| ResolveError::from(e))?;
-        let resolver = AsyncResolver::tokio(config, opts);
-        let hostname = format!("{}.{}.", &vault.host, &vault.domain);
+        let (cfg, opts) = read_system_conf().map_err(|e| ResolveError::from(e))?;
+        let resolver = AsyncResolver::tokio(cfg, opts);
+        let config = DatabaseConfig::from_vault(&vault)?;
+
+        let hostname = format!("{}.{}.", &config.host(), &config.domain());
+
         let response = resolver
             .lookup_ip(&hostname)
             .await

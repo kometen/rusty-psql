@@ -5,13 +5,10 @@
 
 use anyhow::{Context, Result};
 use azure_security_keyvault::SecretClient;
+use std::collections::HashMap;
 
 pub struct Vault {
-    pub host: String,
-    pub user: String,
-    pub name: String,
-    pub pwd: String,
-    pub domain: String,
+    pub secrets: HashMap<String, String>,
 }
 
 impl Vault {
@@ -33,29 +30,32 @@ impl Vault {
     /// use anyhow::Result;
     ///
     /// async fn example() -> Result<()> {
-    ///     let vault = Vault::new("AZURE_KEY_VAULT_TEST").await?;
+    ///     let secret_keys = vec!["".to_string()];
+    ///     let vault = Vault::new("AZURE_KEY_VAULT_TEST", secret_keys).await?;
     ///     Ok(())
     /// }
     /// ```
-    pub async fn new(url: &str) -> Result<Self> {
+    pub async fn new(url: &str, db_keys: Vec<String>) -> Result<Self> {
+        let mut secrets = HashMap::new();
+
         let credential =
             azure_identity::create_credential().context("Failed to create credentials")?;
         let client = SecretClient::new(url, credential)
             .context("Failed to create a SecretClient instance")?;
 
-        let host = get_secret(&client, String::from("db-host")).await?;
-        let user = get_secret(&client, String::from("db-user")).await?;
-        let name = get_secret(&client, String::from("db-name")).await?;
-        let pwd = get_secret(&client, String::from("db-pwd")).await?;
-        let domain = get_secret(&client, String::from("db-domain")).await?;
+        let keys_iter = db_keys.iter();
+        for key in keys_iter {
+            secrets.insert(key.clone(), get_secret(&client, key.clone()).await?);
+        }
 
-        Ok(Self {
-            host,
-            user,
-            name,
-            pwd,
-            domain,
-        })
+        Ok(Self { secrets })
+    }
+
+    pub fn get_required(&self, key: &str) -> Result<String> {
+        self.secrets
+            .get(key)
+            .cloned()
+            .ok_or_else(|| anyhow::anyhow!("Required key '{}' not found", key))
     }
 }
 

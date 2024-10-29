@@ -1,18 +1,15 @@
 pub mod connect {
+    use crate::{DatabaseConfig, Vault};
+    use anyhow::Result;
     use std::process::{Command, Stdio};
-
-    use crate::Vault;
 
     /// Performs the login to the database.
     pub fn run_psql(vault: &Vault) -> Result<(), Box<dyn std::error::Error>> {
-        let connection_string = format!(
-            "postgres://{}@{}.{}/{}",
-            &vault.user, &vault.host, &vault.domain, &vault.name
-        );
+        let config = DatabaseConfig::from_vault(&vault)?;
 
         let mut child = Command::new("psql")
-            .arg(connection_string)
-            .env("PGPASSWORD", &vault.pwd)
+            .arg(&config.connection_string())
+            .env("PGPASSWORD", &config.password())
             .stdout(Stdio::inherit())
             .stderr(Stdio::inherit())
             .spawn()?;

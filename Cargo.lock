@@ -1690,6 +1690,8 @@ dependencies = [
  "clap",
  "dotenv",
  "hickory-resolver",
+ "serde",
+ "serde_json",
  "tokio",
 ]
 
