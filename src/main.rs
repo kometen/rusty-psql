@@ -14,10 +14,9 @@ struct Cli {
 async fn main() -> Result<()> {
     let cli = Cli::parse();
     let secret_manager = SecretManager::new(cli.namespace.as_str())?;
-
     let db_keys = DatabaseConfig::db_keys();
-
     let vault = Vault::new(secret_manager.url.as_str(), db_keys).await?;
+
     if let Err(e) = check_dns(&vault).await {
         eprintln!("DNS resolution failed: {}", e);
         eprintln!("Root cause: {}", e.root_cause());

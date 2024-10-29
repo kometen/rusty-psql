@@ -1,3 +1,5 @@
+mod tests;
+
 use crate::Vault;
 use anyhow::Result;
 use serde::Serialize;
@@ -12,6 +14,19 @@ pub struct DatabaseConfig {
 }
 
 impl DatabaseConfig {
+    /// Creates a new DatabaseConfig from vault secrets.
+    ///
+    /// # Arguments
+    ///
+    /// * `vault` - The vault containing the database secrets
+    ///
+    /// # Returns
+    ///
+    /// * `Result<DatabaseConfig>` - The configured database config or an error
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if any required field is missing from the vault
     pub fn from_vault(vault: &Vault) -> Result<Self> {
         Ok(Self {
             host: vault.get_required("db-host")?,
