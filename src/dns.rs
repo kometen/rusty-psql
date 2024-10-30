@@ -24,7 +24,7 @@ pub mod dns {
     pub async fn check_dns(vault: &Vault) -> Result<()> {
         let (cfg, opts) = read_system_conf().map_err(|e| ResolveError::from(e))?;
         let resolver = AsyncResolver::tokio(cfg, opts);
-        let config = DatabaseConfig::from_vault(&vault)?;
+        let config = DatabaseConfig::from_vault(vault)?;
 
         let hostname = format!("{}.{}.", &config.host(), &config.domain());
 
