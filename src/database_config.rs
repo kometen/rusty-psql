@@ -1,8 +1,8 @@
-mod tests;
-
 macro_rules! db_config_from_vault {
     ($($field:ident),*) => {
-        use crate::Vault;
+        mod tests;
+
+        use crate::VaultStorage;
         use anyhow::Result;
         use serde::Serialize;
 
@@ -27,7 +27,7 @@ macro_rules! db_config_from_vault {
             /// # Errors
             ///
             /// Returns an error if any required field is missing from the vault
-            pub fn from_vault(vault: &Vault) -> Result<Self> {
+            pub fn from_vault(vault: &impl VaultStorage) -> Result<Self> {
                 Ok(Self {
                     $($field: vault.get_required(&format!("db-{}", stringify!($field)))?,)*
                 })

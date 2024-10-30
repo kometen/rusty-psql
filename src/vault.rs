@@ -3,12 +3,18 @@
 //! This module manages secrets retrieved from Azure Key Vault.
 //!
 
+mod tests;
+
 use anyhow::{Context, Result};
 use azure_security_keyvault::SecretClient;
 use std::collections::HashMap;
 
 pub struct Vault {
     pub secrets: HashMap<String, String>,
+}
+
+pub trait VaultStorage {
+    fn get_required(&self, key: &str) -> Result<String>;
 }
 
 impl Vault {
@@ -50,8 +56,35 @@ impl Vault {
 
         Ok(Self { secrets })
     }
+}
 
-    pub fn get_required(&self, key: &str) -> Result<String> {
+impl VaultStorage for Vault {
+    /// Creates a VaultStorage instance.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - Vault
+    /// * `key` - The Azure Key Vault secret
+    ///
+    /// # Returns
+    ///
+    /// A Result containing the Vault secrets if successful, or an error if the secrets
+    /// could not be retrieved.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use rusty_psql::{Vault, VaultStorage};
+    /// use anyhow::Result;
+    ///
+    /// async fn example() -> Result<()> {
+    ///     let secret_keys = vec!["".to_string()];
+    ///     let vault = Vault::new("AZURE_KEY_VAULT_TEST", secret_keys).await?;
+    ///     let secret_key = VaultStorage::get_required(&vault, "")?;
+    ///     Ok(())
+    /// }
+    /// ```
+    fn get_required(&self, key: &str) -> Result<String> {
         self.secrets
             .get(key)
             .cloned()
