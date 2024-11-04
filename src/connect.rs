@@ -1,7 +1,7 @@
 pub mod connect {
+    use crate::DatabaseConfig;
     use anyhow::Result;
     use azure_vault_secrets::VaultStorage;
-    use db_config::DatabaseConfig;
     use std::process::{Command, Stdio};
 
     /// Performs the login to the database.

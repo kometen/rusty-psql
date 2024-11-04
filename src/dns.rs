@@ -6,9 +6,9 @@
 
 pub mod dns {
 
+    use crate::DatabaseConfig;
     use anyhow::{Context, Result};
     use azure_vault_secrets::Vault;
-    use db_config::DatabaseConfig;
     use hickory_resolver::error::ResolveError;
     use hickory_resolver::system_conf::read_system_conf;
     use hickory_resolver::AsyncResolver;
