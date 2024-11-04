@@ -854,6 +854,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "hostname_resolver"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "562c5d123073beae1a3f5bcc7d4fd32ec1456532fdc6f217f1f5a5504e09799f"
+dependencies = [
+ "anyhow",
+ "azure_vault_secrets",
+ "db_config",
+ "hickory-resolver",
+ "serde",
+]
+
+[[package]]
 name = "http"
 version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1716,6 +1729,7 @@ dependencies = [
  "db_config",
  "dotenv",
  "hickory-resolver",
+ "hostname_resolver",
  "secret_manager_1password",
  "serde",
  "serde_json",
