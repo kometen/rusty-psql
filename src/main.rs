@@ -2,7 +2,8 @@ use anyhow::Result;
 use azure_vault_secrets::Vault;
 use clap::Parser;
 use rusty_psql::DatabaseConfig;
-use rusty_psql::{check_dns, run_psql, SecretManager};
+use rusty_psql::{check_dns, run_psql};
+use secret_manager_1password::SecretManager;
 
 // Command line arguments with clap.
 #[derive(Parser)]
