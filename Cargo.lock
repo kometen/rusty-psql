@@ -268,6 +268,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "azure_vault_secrets"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "59d7c4365f7f39b6d19d6bb6de02c75488b7498781b7eb8da36230db4764593c"
+dependencies = [
+ "anyhow",
+ "azure_core",
+ "azure_identity",
+ "azure_security_keyvault",
+]
+
+[[package]]
 name = "backtrace"
 version = "0.3.74"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -471,6 +483,17 @@ name = "data-encoding"
 version = "2.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8566979429cf69b49a5c740c60791108e86440e8be149bbea4fe54d2c32d6e2"
+
+[[package]]
+name = "db_config"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "12c2092f3cb9ae9d291d159061e6229617dc6fe0e232f160a022484fe33a08b5"
+dependencies = [
+ "anyhow",
+ "azure_vault_secrets",
+ "serde",
+]
 
 [[package]]
 name = "deranged"
@@ -1687,7 +1710,9 @@ dependencies = [
  "azure_core",
  "azure_identity",
  "azure_security_keyvault",
+ "azure_vault_secrets",
  "clap",
+ "db_config",
  "dotenv",
  "hickory-resolver",
  "serde",
