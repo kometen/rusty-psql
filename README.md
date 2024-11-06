@@ -26,9 +26,11 @@ let op_path = format!("op://Production/AzureKeyVault{}/credentials/url", key);
 An example of a path can be `op://Production/AzureKeyVaultInvoice/credentials/url`. The path can be changed to suit your own
 requirement with the format `op://[vault-name]/[item]/[text-field]/[value]` in 1password.
 
-Build and run the program
+Clone the repository, test, build and run with
 
 ```
+cargo test
+cargo build [--release]
 ./target/release/rusty_psql -n invoice
 ```
 
