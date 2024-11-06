@@ -5,8 +5,6 @@ and URL to Azure Key Vault from 1password thus avoiding storing passwords in cle
 
 The command line utilities from 1password and Azure are required, as well as Azure Key Vault. Log in with `az login`.
 
-Clone the repository, run `cargo build [--release]`, add the `.env`file with the domain where the PostgreSQL database is.
-
 Add the following secrets to Azure Key Vault:
 
 ```
@@ -38,7 +36,7 @@ Build and run the container-image.
 
 ```
 docker build -t rusty_psql:dev .
-docker run --user rusty_psql_user backup_db:dev
+docker run --user rusty_psql_user rusty_psql:dev
 ```
 
 The container will not inherit the environment from the shell so running from the container will not work.
