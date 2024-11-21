@@ -33,6 +33,13 @@ cargo build [--release]
 ./target/release/rusty_psql -n invoice
 ```
 
+Install via `brew tap`.
+
+```
+brew tap kometen/rusty-psql
+brew install rusty-psql
+```
+
 Build and run the container-image.
 
 ```
