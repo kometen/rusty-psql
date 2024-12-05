@@ -23,7 +23,7 @@ jobs:
           export-env: true
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          AZURE_KEY_VAULT_TEST: op://Test/AzureKeyVaultTest/url
+          AZURE_KEY_VAULT_TEST: op://Test/AzureKeyVaultDemo/url
 
       - uses: actions/checkout@v4
       - name: Run tests
