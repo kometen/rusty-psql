@@ -19,10 +19,10 @@ db-domain
 Add an entry in 1password that can be accessed by the program. The path is formatted in Rust.
 
 ```
-let op_path = format!("op://Production/AzureKeyVault{}/credentials/url", key);
+let op_path = format!("op://Production/AzureKeyVault{}/url", key);
 ```
 
-An example of a path can be `op://Production/AzureKeyVaultInvoice/credentials/url`. The path can be changed to suit your own
+An example of a path can be `op://Production/AzureKeyVaultInvoice/url`. The path can be changed to suit your own
 requirement with the format `op://[vault-name]/[item]/[text-field]/[value]` in 1password.
 
 Clone the repository, test, build and run with
