@@ -22,8 +22,11 @@ Add an entry in 1password that can be accessed by the program. The path is forma
 let op_path = format!("op://Production/AzureKeyVault{}/url", key);
 ```
 
-An example of a path can be `op://Production/AzureKeyVaultInvoice/url`. The path can be changed to suit your own
-requirement with the format `op://[vault-name]/[item]/[text-field]/[value]` in 1password.
+An example of a key can be `Invoice` and the path becomes `op://Production/AzureKeyVaultInvoice/url`.
+
+![add](./1password-invoice.png)
+
+Change the path to suit your own requirement with the format `op://[vault-name]/[item]/[text-field]/[value]` in 1password.
 
 Clone the repository, test, build and run with
 
