@@ -6,16 +6,6 @@ and URL to Azure Key Vault from 1password thus avoiding storing passwords in cle
 Requires 1password  and Azure command line utilities installed locally, an Azure-subscription, a PostgreSQL-client.
 Log in with `az login`.
 
-Add the following secrets to Azure Key Vault:
-
-```
-db-host
-db-name
-db-pwd
-db-user
-db-domain
-```
-
 Add an entry in 1password that can be accessed by the program. The path is formatted in Rust.
 
 ```
@@ -25,6 +15,17 @@ let op_path = format!("op://Production/AzureKeyVault{}/url", key);
 An example of a key can be `Invoice` and the path becomes `op://Production/AzureKeyVaultInvoice/url`.
 
 ![add](./1password-invoice.png)
+
+
+Create an Azure Key Vault named `invoice` and add the following secrets to Azure Key Vault:
+
+```
+db-host
+db-name
+db-pwd
+db-user
+db-domain
+```
 
 Change the path to suit your own requirement with the format `op://[vault-name]/[item]/[text-field]/[value]` in 1password.
 
